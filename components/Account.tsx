@@ -5,6 +5,7 @@ import { injected, walletConnect } from "../connectors";
 import useENSName from "../hooks/useENSName";
 import useMetaMaskOnboarding from "../hooks/useMetaMaskOnboarding";
 import { formatEtherscanLink, shortenHex } from "../util";
+import Button from '@mui/material/Button';
 
 type AccountProps = {
   triedToEagerConnect: boolean;
@@ -42,9 +43,12 @@ const Account = ({ triedToEagerConnect }: AccountProps) => {
 
   if (typeof account !== "string") {
     return (
-      <div>
+      <div style={{ marginTop: '5px' }}>
         {isWeb3Available ? (
-          <button
+          <Button
+            style={{ margin: '1px' }}
+            size="small"
+            variant="outlined"
             disabled={connecting}
             onClick={() => {
               setConnecting(true);
@@ -60,12 +64,23 @@ const Account = ({ triedToEagerConnect }: AccountProps) => {
             }}
           >
             {isMetaMaskInstalled ? "Connect to MetaMask" : "Connect to Wallet"}
-          </button>
-          
+          </Button>
         ) : (
-          <button onClick={startOnboarding}>Install Metamask</button>
-        )}
-        {(<button
+          <Button
+            style={{ margin: '5px' }}
+            size="small"
+            variant="outlined"
+            onClick={startOnboarding}
+          >
+            Install Metamask
+          </Button>
+        )
+        }
+        {
+          (<Button
+            style={{ margin: '5px' }}
+            size="small"
+            variant="outlined"
             disabled={connecting}
             onClick={async () => {
               try {
@@ -79,36 +94,40 @@ const Account = ({ triedToEagerConnect }: AccountProps) => {
               }
             }}>
             Wallet Connect
-          </button>)
+          </Button>)
         }
-      </div>
+      </div >
     );
   }
 
   return (
     <>
+      <div style={{ marginTop: '5px' }}>
         <a
-      {...{
-        href: formatEtherscanLink("Account", [chainId, account]),
-        target: "_blank",
-        rel: "noopener noreferrer",
-      }}
-    >
-      {ENSName || `${shortenHex(account, 4)}`}
-    </a>
-    <button
+          style={{ color: 'white' }}
+          {...{
+            href: formatEtherscanLink("Account", [chainId, account]),
+            target: "_blank",
+            rel: "noopener noreferrer",
+          }}
+        >
+          {ENSName || `${shortenHex(account, 4)}`}
+        </a>
+        <Button
+          style={{ margin: '5px' }}
+          size="small"
+          variant="outlined"
           onClick={async () => {
             try {
               await deactivate()
-            } catch (e) { 
+            } catch (e) {
               setError(error);
             }
           }}>
           Disconnect
-        </button>
+        </Button>
+      </div>
     </>
-   
-    
   );
 };
 

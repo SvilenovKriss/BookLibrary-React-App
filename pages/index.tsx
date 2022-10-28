@@ -1,11 +1,9 @@
 import { useWeb3React } from "@web3-react/core";
 import Head from "next/head";
-import Link from "next/link";
 import Account from "../components/Account";
 import NativeCurrencyBalance from "../components/NativeCurrencyBalance";
-import TokenBalance from "../components/TokenBalance";
-import USLibrary from "../components/USLibrary";
-import { ALBT_TOKEN_ADDRESS, US_ELECTION_ADDRESS } from "../constants";
+import BookLibrary from "../components/BookLibrary";
+import { BOOK_LIBRARY_ADDRESS } from "../constants";
 import useEagerConnect from "../hooks/useEagerConnect";
 
 function Home() {
@@ -23,29 +21,26 @@ function Home() {
       </Head>
 
       <header>
-        <nav>
-          <Link href="/">
-            <a>LimeAcademy-boilerplate</a>
-          </Link>
+        <nav style={{ background: "#303030", height: "50px" }}>
+          <h1 style={{
+            display: "flex",
+            margin: '0 5px',
+            flexDirection: "column",
+            justifyContent: "center",
+            color: 'white'
+          }}>
+            Book Library
+          </h1>
 
           <Account triedToEagerConnect={triedToEagerConnect} />
         </nav>
       </header>
 
       <main>
-        <h1>
-          Welcome to{" "}
-          <a href="https://github.com/LimeChain/next-web3-boilerplate">
-            LimeAcademy-boilerplate
-          </a>
-        </h1>
-
         {isConnected && (
           <section>
             <NativeCurrencyBalance />
-
-            <TokenBalance tokenAddress={ALBT_TOKEN_ADDRESS} symbol="ALBT" />
-            <USLibrary contractAddress={US_ELECTION_ADDRESS} />
+            <BookLibrary contractAddress={BOOK_LIBRARY_ADDRESS} />
           </section>
         )}
       </main>
@@ -57,10 +52,15 @@ function Home() {
         }
 
         main {
-          text-align: center;
+        text-align: center;
+        }
+
+        body, html {
+          margin: 0;
+          height: 100%;
         }
       `}</style>
-    </div>
+    </div >
   );
 }
 
