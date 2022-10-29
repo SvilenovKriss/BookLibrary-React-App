@@ -11,6 +11,7 @@ type Book = {
 
 export type BookLibraryType = {
     getBooksLength: (index: number) => number;
+    getUserBooks: () => number;
     returnBook: (index: number) => void;
     borrowBook: (id: number) => void;
     addBook: (name: string, copies: number) => void;
